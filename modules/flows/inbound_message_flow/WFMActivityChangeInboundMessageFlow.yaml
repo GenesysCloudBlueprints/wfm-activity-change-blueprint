@@ -1,0 +1,92 @@
+inboundShortMessage:
+  name: {{flow_name}}
+  description: ""
+  division: {{division_name}}
+  startUpRef: "/inboundShortMessage/states/state[Initial State_10]"
+  defaultLanguage: {{default_language}}
+  supportedLanguages:
+    en-us:
+      defaultLanguageSkill:
+        noValue: true
+  variables:
+    - stringVariable:
+        name: Flow.groupId
+        initialValue:
+          noValue: true
+        isOutput: false
+    - userVariable:
+        name: Flow.user
+        initialValue:
+          noValue: true
+        isOutput: false
+    - stringVariable:
+        name: Flow.userId
+        initialValue:
+          noValue: true
+        isOutput: false
+    - stringVariable:
+        name: Flow.userJid
+        initialValue:
+          noValue: true
+        isOutput: false
+  settingsErrorHandling:
+    errorHandling:
+      disconnect:
+        none: true
+  states:
+    - state:
+        name: Initial State
+        refId: Initial State_10
+        actions:
+          - getParticipantData:
+              name: Get Participant Data
+              attributes:
+                - attribute:
+                    name:
+                      lit: userId
+                    variable: Flow.userId
+                - attribute:
+                    name:
+                      lit: groupId
+                    variable: Flow.groupId
+                - attribute:
+                    name:
+                      lit: userJid
+                    variable: Flow.userJid
+          - findUserById:
+              name: Find User by ID
+              findId:
+                exp: Flow.userId
+              findResult:
+                var: Flow.user
+          - callBotFlow:
+              name: Call Bot Flow
+              inputText:
+                exp: Message.Message.body
+              exitReason:
+                noValue: true
+              intent:
+                noValue: true
+              botFlow:
+                {{bot_flow_name}}:
+                  ver_latestPublished:
+                    inputs:
+                      Slot.Name:
+                        noValue: true
+                      Flow.fromUserId:
+                        exp: Flow.userId
+                      Flow.groupId:
+                        exp: Flow.groupId
+                      Flow.fromUserName:
+                        exp: Flow.user.name
+                      Flow.FlowfromUserJid:
+                        exp: Flow.userJid
+                      Slot.FavoriteQuest:
+                        noValue: true
+                    outputs:
+                      Slot.Name:
+                        noValue: true
+                      Slot.FavoriteQuest:
+                        noValue: true
+          - disconnect:
+              name: Disconnect

@@ -1,0 +1,74 @@
+{
+  "name": "Get Agent Schedule Data Action",
+  "integrationType": "purecloud-data-actions",
+  "actionType": "custom",
+  "config": {
+    "request": {
+      "requestUrlTemplate": "/api/v2/workforcemanagement/businessunits/${input.BusinessUnit}/agentschedules/search?forceDownloadService=false",
+      "requestType": "POST",
+      "headers": {},
+      "requestTemplate": "{\n  \"userIds\": [\n    \"${input.UserID}\"\n  ],\n  \"startDate\": \"${input.StartDate}\",\n  \"endDate\": \"${input.EndDate}\"\n}"
+    },
+    "response": {
+      "translationMap": {
+        "activityCodeId": "$.result.agentSchedules[0].shifts[0].activities[*].activityCodeId",
+        "activityLength": "$.result.agentSchedules[0].shifts[0].activities[*].lengthMinutes",
+        "startTime": "$.result.agentSchedules[0].shifts[0].activities[*].startDate"
+      },
+      "translationMapDefaults": {},
+      "successTemplate": "{\"startTime\": ${startTime}, \"activityLength\": ${activityLength}, \"activityCodeId\": ${activityCodeId}}"
+    }
+  },
+  "contract": {
+    "input": {
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "BusinessUnit": {
+            "description": "ID of the business unit the agent belongs to. Can be obtained via API or UI",
+            "type": "string"
+          },
+          "EndDate": {
+            "description": "in ISO 8601 format. eg. 2025-04-15T04:00:00.000Z",
+            "type": "string"
+          },
+          "StartDate": {
+            "description": "in ISO 8601 format. eg. 2025-04-15T04:00:00.000Z",
+            "type": "string"
+          },
+          "UserID": {
+            "description": "ID of the agent to get schedule for",
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "output": {
+      "successSchema": {
+        "type": "object",
+        "properties": {
+          "activityCodeId": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "activityLength": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "startTime": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        }
+      }
+    }
+  },
+  "secure": false
+}

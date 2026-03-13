@@ -1,0 +1,9 @@
+client_id               = "your-oauth-client-id"
+client_secret           = "your-oauth-client-secret"
+genesys_cloud_region    = "us_east_1"       # eg. us_east_1, eu_west_1, ap_southeast_2, etc.
+group_name              = "your-group-name" # The name of the group to send the test message to and add to the mapping in the generic webhook
+default_language        = "en-us"
+environment_name        = "Dev"
+genesys_division_name   = "Home"
+genesys_webhook_url     = "your-url" # eg. https://apps.mypurecloud.com:443/webhooks/api/v1/webhook/some-uuid
+generic_webhook_user_id = "your-generic-webhook-user-id"

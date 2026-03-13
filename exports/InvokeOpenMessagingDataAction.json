@@ -1,0 +1,61 @@
+{
+  "name": "Invoke Open Messaging Data Action",
+  "integrationType": "purecloud-data-actions",
+  "actionType": "custom",
+  "config": {
+    "request": {
+      "requestUrlTemplate": "/api/v2/conversations/messages/${input.IntegrationID}/inbound/open/message?prefetchConversationId=true",
+      "requestType": "POST",
+      "headers": {},
+      "requestTemplate": "{\n  \"channel\": {\n    \"messageId\": \"${input.messageId}\",\n    \"from\": {\n      \"id\": \"${input.userJid}\",\n      \"idType\": \"opaque\"\n    },\n    \"metadata\": {\n      \"customAttributes\": {\n        \"groupJid\": \"${input.groupJid}\",\n\"userJid\": \"${input.userJid}\",\n\"userId\": \"${input.userid}\"\n      }\n    },\n    \"time\": \"${input.dateTime}\"\n  },\n  \"text\": \"${input.messageText}\",\n  \"direction\": \"Inbound\"\n}"
+    },
+    "response": {
+      "translationMap": {},
+      "translationMapDefaults": {},
+      "successTemplate": "${rawResult}"
+    }
+  },
+  "contract": {
+    "input": {
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "IntegrationID": {
+            "type": "string"
+          },
+          "dateTime": {
+            "description": "ISO-8601 (2025-04-14T21:15:00+0000)",
+            "type": "string"
+          },
+          "groupJid": {
+            "type": "string"
+          },
+          "messageId": {
+            "description": "Randomized Message ID from Open Messaging",
+            "type": "string"
+          },
+          "messageText": {
+            "type": "string"
+          },
+          "userJid": {
+            "type": "string"
+          },
+          "userid": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "output": {
+      "successSchema": {
+        "type": "object",
+        "properties": {
+          "conversationId": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "secure": false
+}
