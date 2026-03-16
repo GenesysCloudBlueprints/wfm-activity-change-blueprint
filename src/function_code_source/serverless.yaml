@@ -1,0 +1,30 @@
+service: wfm-update-shift
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+
+  # Optional: env vars if you ever deploy to AWS directly
+  environment:
+    GC_REGION: us_east_1
+    LOG_LEVEL: info
+    # Optionally:
+    # GC_CLIENT_ID: your_client_id
+    # GC_CLIENT_SECRET: your_client_secret
+    # DEFAULT_BUSINESS_UNIT_ID: your_default_bu_id
+
+functions:
+  updateSchedule:
+    handler: handler.updateSchedule # or handler.handler (both exported)
+    events:
+      - httpApi:
+          path: /wfm/update-shift
+          method: post
+
+package:
+  patterns:
+    - handler.js
+    - package.json
+    - node_modules/**

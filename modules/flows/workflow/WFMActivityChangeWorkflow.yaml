@@ -1,0 +1,103 @@
+workflow:
+  name: {{flow_name}}
+  description: Called every time there's a chat message posted to the Collaborate Virtual Agent chat group. This workflow sends the message to the Genesys Cloud Virtual Agent to handle the message.
+  division: {{division_name}}
+  startUpRef: "/workflow/states/state[Initial State_10]"
+  defaultLanguage: {{default_language}}
+  supportedLanguages:
+    en-us:
+      none: true
+  variables:
+    - jsonVariable:
+        name: Flow.jsonData
+        initialValue:
+          noValue: true
+        isInput: true
+        isOutput: false
+  settingsErrorHandling:
+    errorHandling:
+      endWorkflow:
+        none: true
+  states:
+    - state:
+        name: Initial State
+        refId: Initial State_10
+        variables:
+          - stringVariable:
+              name: State.ConversationID
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - jsonVariable:
+              name: State.tempJSON
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+        actions:
+          - updateData:
+              name: Update Data
+              statements:
+                - json:
+                    variable: State.tempJSON
+                    value:
+                      exp: Flow.jsonData
+          - callData:
+              name: Call Data Action
+              timeout:
+                lit:
+                  minutes: 1
+              category:
+                {{integration_category}}:
+                  dataAction:
+                    {{invoke_open_messaging_data_action_name}}:
+                      inputs:
+                        messageId:
+                          exp: Flow.jsonData.messageId
+                        dateTime:
+                          exp: GetJsonObjectProperty(Flow.jsonData, "created")
+                        messageText:
+                          exp: GetJsonObjectProperty(Flow.jsonData, "body")
+                        groupJid:
+                          exp: Flow.jsonData.to.entityId
+                        IntegrationID:
+                          lit: {{open_messaging_integration_id}}
+                        userJid:
+                          exp: Flow.jsonData.from.entityJid
+                        userid:
+                          exp: Flow.jsonData.from.entityId
+                      successOutputs:
+                        conversationId:
+                          var: State.ConversationID
+                      failureOutputs:
+                        errorCode:
+                          noValue: true
+                        status:
+                          noValue: true
+                        correlationId:
+                          noValue: true
+                        entityId:
+                          noValue: true
+                        entityName:
+                          noValue: true
+                        userMessage:
+                          noValue: true
+                        userParamsMessage:
+                          noValue: true
+                        userParams.key:
+                          noValue: true
+                        userParams.value:
+                          noValue: true
+                        details.errorCode:
+                          noValue: true
+                        details.fieldName:
+                          noValue: true
+                        details.entityId:
+                          noValue: true
+                        details.entityName:
+                          noValue: true
+          - endWorkflow:
+              name: End Workflow
+              exitReason:
+                noValue: true

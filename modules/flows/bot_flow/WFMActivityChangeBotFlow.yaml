@@ -1,0 +1,893 @@
+botFlow:
+  name: {{bot_name}}
+  description: ""
+  division: {{division_name}}
+  startUpRef: "/botFlow/bots/bot[Default Bot_10]"
+  defaultLanguage: {{default_language}}
+  supportedLanguages:
+    en-us:
+      defaultLanguageSkill:
+        noValue: true
+      speechToText:
+        engine:
+          name: Genesys Enhanced v2
+          defaultEngine: true
+  variables:
+    - stringVariable:
+        name: Flow.atMentionStr
+        initialValue:
+          noValue: true
+        isInput: false
+        isOutput: false
+    - stringCollectionVariable:
+        name: Flow.DynamicActivities
+        initialValue:
+          noValue: true
+        isInput: false
+        isOutput: false
+    - stringVariable:
+        name: Flow.FlowfromUserJid
+        initialValue:
+          noValue: true
+        isInput: true
+        isOutput: false
+    - stringVariable:
+        name: Flow.fromUserId
+        initialValue:
+          noValue: true
+        isInput: true
+        isOutput: false
+    - stringVariable:
+        name: Flow.fromUserName
+        initialValue:
+          noValue: true
+        isInput: true
+        isOutput: false
+    - stringVariable:
+        name: Flow.groupId
+        initialValue:
+          noValue: true
+        isInput: true
+        isOutput: false
+    - stringVariable:
+        name: Flow.JabberID
+        initialValue:
+          noValue: true
+        isInput: false
+        isOutput: false
+    - stringVariable:
+        name: Slot.Activity
+        initialValue:
+          noValue: true
+        isInput: true
+        isOutput: true
+    - stringVariable:
+        name: Slot.AdjustmentTime
+        initialValue:
+          noValue: true
+        isInput: true
+        isOutput: true
+    - stringVariable:
+        name: Slot.AgentEmail
+        initialValue:
+          noValue: true
+        isInput: true
+        isOutput: true
+    - stringVariable:
+        name: Slot.FavoriteQuest
+        initialValue:
+          noValue: true
+        isInput: true
+        isOutput: true
+    - stringVariable:
+        name: Slot.Name
+        initialValue:
+          noValue: true
+        isInput: true
+        isOutput: true
+  settingsActionDefaults:
+    callGuide:
+      voiceProcessingPrompt:
+        exp: "MakeCommunication(\n  ToCommunication(NOT_SET))"
+    askForIntent:
+      voiceEndOfInputTimeout:
+        lit:
+          seconds: 1
+    askForBoolean:
+      voiceEndOfInputTimeout:
+        lit:
+          seconds: 1
+    askForSlot:
+      voiceEndOfInputTimeout:
+        lit:
+          seconds: 1
+    loopAnythingElse:
+      voiceEndOfInputTimeout:
+        lit:
+          seconds: 1
+  settingsErrorHandling:
+    errorHandling:
+      disconnect:
+        none: true
+    enableAgentEscalation:
+      lit: false
+    errorEventHandover:
+      exp: "MakeCommunication(\n  \"Sorry, not understanding you.  Goodbye!\")"
+    recognitionFailureEventHandover:
+      exp: "MakeCommunication(\n  \"Sorry, not understanding you.  Goodbye!\")"
+    recognitionFailureEventHandling:
+      disconnect:
+        none: true
+    agentEscalationHandling:
+      exit:
+        none: true
+  settingsPrompts:
+    ensureAudioInPrompts: false
+    promptMediaToValidate:
+      - mediaType: audio
+      - mediaType: tts
+  tasks:
+    - task:
+        name: WFM - Reschedule
+        refId: WFM - Reschedule_21
+        variables:
+          - jsonVariable:
+              name: Task.Activities
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - stringVariable:
+              name: Task.ActivityCategory
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - stringVariable:
+              name: Task.ActivityCodeId
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - stringCollectionVariable:
+              name: Task.activityCodeIds
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - integerVariable:
+              name: Task.ActivityId
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - stringVariable:
+              name: Task.activityJson
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - integerCollectionVariable:
+              name: Task.activityLength
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - integerCollectionVariable:
+              name: Task.activityLengths
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - stringVariable:
+              name: Task.ActivityName
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - booleanVariable:
+              name: Task.ActivityPaid
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - stringVariable:
+              name: Task.ActivityStartTime
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - stringVariable:
+              name: Task.ActivityToChange
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - integerVariable:
+              name: Task.AdjustedLoop
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - userVariable:
+              name: Task.AgentEmail
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - stringVariable:
+              name: Task.businessUnitId
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - stringVariable:
+              name: Task.errorCode
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - jsonVariable:
+              name: Task.JSONObject
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - integerVariable:
+              name: Task.loop
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - booleanVariable:
+              name: Task.paid
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - stringVariable:
+              name: Task.raw_json
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - jsonVariable:
+              name: Task.ScheduleResult
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - stringCollectionVariable:
+              name: Task.startTimes
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - integerVariable:
+              name: Task.status
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - stringVariable:
+              name: Task.TheActivityLength
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - jsonVariable:
+              name: Task.TodaysSchedule
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+          - stringVariable:
+              name: Task.userMessage
+              initialValue:
+                noValue: true
+              isInput: false
+              isOutput: false
+        actions:
+          - askForSlot:
+              name: Ask for Slot
+              slot:
+                name: AgentEmail
+              question:
+                exp: "MakeCommunication(\n  \"What is your email address?\")"
+              customValidation:
+                noValue: true
+              confirmationMode:
+                lit: never
+              continuationPrompt:
+                exp: "MakeCommunication(\n  \"I got\", \n  Slot.AgentEmail, \n  \"so far, please continue.\")"
+              noInput:
+                exp: "MakeCommunication(\n  \"Please say or enter the\", \n  \"(please put your slot name here)\")"
+              noMatch:
+                exp: "MakeCommunication(\n  \"Please give me the\", \n  \"(please put your slot name here)\")"
+              voiceEndOfInputTimeout:
+                noValue: true
+              outputs:
+                maxNoInputs:
+                  enabled: false
+                maxNoMatches:
+                  enabled: false
+          - findUser:
+              name: Find User
+              findName:
+                exp: Slot.AgentEmail
+              findResult:
+                var: Task.AgentEmail
+              outputs:
+                found:
+                  actions:
+                    - callData:
+                        name: Call Data Action
+                        timeout:
+                          lit:
+                            minutes: 1
+                        category:
+                          {{data_action_integration_category}}:
+                            dataAction:
+                              {{get_business_unit_data_action_name}}:
+                                inputs:
+                                  agentId:
+                                    exp: Task.AgentEmail.id
+                                successOutputs:
+                                  businessUnit:
+                                    var: Task.businessUnitId
+                                failureOutputs:
+                                  errorCode:
+                                    var: Task.errorCode
+                                  status:
+                                    noValue: true
+                                  correlationId:
+                                    noValue: true
+                                  entityId:
+                                    noValue: true
+                                  entityName:
+                                    noValue: true
+                                  userMessage:
+                                    var: Task.userMessage
+                                  userParamsMessage:
+                                    noValue: true
+                                  userParams.key:
+                                    noValue: true
+                                  userParams.value:
+                                    noValue: true
+                                  details.errorCode:
+                                    noValue: true
+                                  details.fieldName:
+                                    noValue: true
+                                  details.entityId:
+                                    noValue: true
+                                  details.entityName:
+                                    noValue: true
+                        outputs:
+                          success:
+                            actions:
+                              - callData:
+                                  name: Call Data Action
+                                  timeout:
+                                    lit:
+                                      minutes: 1
+                                  category:
+                                    {{data_action_integration_category}}:
+                                      dataAction:
+                                        {{get_agent_schedule_data_action_name}}:
+                                          inputs:
+                                            StartDate:
+                                              exp: Flow.StartDateTimeUtc
+                                            EndDate:
+                                              exp: AddHours(Flow.StartDateTimeUtc, 24)
+                                            UserID:
+                                              exp: Task.AgentEmail.id
+                                            BusinessUnit:
+                                              exp: Task.businessUnitId
+                                          successOutputs:
+                                            startTime:
+                                              var: Task.startTimes
+                                            activityLength:
+                                              var: Task.activityLengths
+                                            activityCodeId:
+                                              var: Task.activityCodeIds
+                                          failureOutputs:
+                                            errorCode:
+                                              var: Task.errorCode
+                                            status:
+                                              noValue: true
+                                            correlationId:
+                                              noValue: true
+                                            entityId:
+                                              noValue: true
+                                            entityName:
+                                              noValue: true
+                                            userMessage:
+                                              var: Task.userMessage
+                                            userParamsMessage:
+                                              noValue: true
+                                            userParams.key:
+                                              noValue: true
+                                            userParams.value:
+                                              noValue: true
+                                            details.errorCode:
+                                              noValue: true
+                                            details.fieldName:
+                                              noValue: true
+                                            details.entityId:
+                                              noValue: true
+                                            details.entityName:
+                                              noValue: true
+                                  outputs:
+                                    success:
+                                      actions:
+                                        - communicate:
+                                            name: Communicate
+                                            communication:
+                                              exp: "MakeCommunication(\n  \"Your schedule is as follows\")"
+                                        - loop:
+                                            name: Loop
+                                            currentIndex:
+                                              var: Task.loop
+                                            loopCount:
+                                              exp: Count(Task.activityCodeIds)
+                                            outputs:
+                                              loop:
+                                                actions:
+                                                  - dataTableLookup:
+                                                      name: Data Table Lookup
+                                                      lookupValue:
+                                                        exp: GetAt(Task.activityCodeIds, Task.loop)
+                                                      dataTable:
+                                                        {{wfm_status_mapping_data_table_name}}:
+                                                          foundOutputs:
+                                                            Name:
+                                                              var: Task.ActivityName
+                                                            Category:
+                                                              var: Task.ActivityCategory
+                                                            Paid:
+                                                              var: Task.paid
+                                                          failureOutputs:
+                                                            errorType:
+                                                              noValue: true
+                                                            errorMessage:
+                                                              noValue: true
+                                                  - updateData:
+                                                      name: Update Data
+                                                      statements:
+                                                        - string:
+                                                            variable: Task.ActivityCodeId
+                                                            value:
+                                                              exp: GetAt(Task.activityCodeIds, Task.loop)
+                                                        - string:
+                                                            variable: Task.ActivityStartTime
+                                                            value:
+                                                              exp: GetAt(Task.startTimes, Task.loop)
+                                                        - string:
+                                                            variable: Task.TheActivityLength
+                                                            value:
+                                                              exp: GetAt(Task.activityLengths, Task.loop)
+                                                        - stringCollection:
+                                                            variable: Flow.DynamicActivities
+                                                            value:
+                                                              exp: AddItem(Flow.DynamicActivities, Task.ActivityName)
+                                                        - integer:
+                                                            variable: Task.AdjustedLoop
+                                                            value:
+                                                              exp: Task.loop + 1
+                                                  - communicate:
+                                                      name: Communicate
+                                                      communication:
+                                                        exp: "MakeCommunication(\n  ToCommunication(Task.AdjustedLoop), \n  \": \", \n  ToCommunication(If(IsNotSetOrEmpty(Task.ActivityName), Task.ActivityCategory, Task.ActivityName)), \n  \"with category \", \n  ToCommunication(Task.ActivityCategory), \n  \" that starts at \", \n  ToCommunication(Task.ActivityStartTime), \n  \" for \", \n  ToCommunication(Task.TheActivityLength), \n  \" minutes\")"
+                                        - askForSlot:
+                                            name: Ask for Slot
+                                            slot:
+                                              name: Activity
+                                            question:
+                                              exp: "MakeCommunication(\n  \"Which activity do you want to move?\")"
+                                            customValidation:
+                                              noValue: true
+                                            confirmationMode:
+                                              lit: never
+                                            continuationPrompt:
+                                              exp: "MakeCommunication(\n  \"I got\", \n  Slot.Activity, \n  \"so far, please continue.\")"
+                                            noInput:
+                                              exp: "MakeCommunication(\n  \"Please say or enter the\", \n  \"(please put your slot name here)\")"
+                                            noMatch:
+                                              exp: "MakeCommunication(\n  \"Please give me the\", \n  \"(please put your slot name here)\")"
+                                            voiceEndOfInputTimeout:
+                                              noValue: true
+                                            outputs:
+                                              maxNoInputs:
+                                                enabled: false
+                                              maxNoMatches:
+                                                enabled: false
+                                        - askForSlot:
+                                            name: Ask for Slot
+                                            slot:
+                                              name: AdjustmentTime
+                                            question:
+                                              exp: "MakeCommunication(\n  \"How many minutes do you need to adjust it by?\")"
+                                            customValidation:
+                                              noValue: true
+                                            confirmationMode:
+                                              lit: never
+                                            continuationPrompt:
+                                              exp: "MakeCommunication(\n  \"I got\", \n  Slot.AdjustmentTime, \n  \"so far, please continue.\")"
+                                            noInput:
+                                              exp: "MakeCommunication(\n  \"Please say or enter the\", \n  \"(please put your slot name here)\")"
+                                            noMatch:
+                                              exp: "MakeCommunication(\n  \"Please give me the\", \n  \"(please put your slot name here)\")"
+                                            voiceEndOfInputTimeout:
+                                              noValue: true
+                                            outputs:
+                                              maxNoInputs:
+                                                enabled: false
+                                              maxNoMatches:
+                                                enabled: false
+                                        - communicate:
+                                            name: Communicate
+                                            communication:
+                                              exp: "MakeCommunication(\n  \"Activity \", \n  ToCommunication(ResolveSlot(Slot.Activity)), \n  \" will be moved by \", \n  ToCommunication(ResolveSlot(Slot.AdjustmentTime)), \n  \" minutes.\")"
+                                        - updateData:
+                                            name: Update Data
+                                            statements:
+                                              - integer:
+                                                  variable: Task.ActivityId
+                                                  value:
+                                                    exp: ToInt(Slot.Activity) - 1
+                                              - boolean:
+                                                  variable: Task.ActivityPaid
+                                                  value:
+                                                    exp: Task.paid
+                                        - callData:
+                                            name: Call Data Action
+                                            timeout:
+                                              lit:
+                                                minutes: 1
+                                            category:
+                                              {{function_integration_category}}:
+                                                dataAction:
+                                                  {{adjust_agent_schedule_data_action_name}}:
+                                                    inputs:
+                                                      businessUnitId:
+                                                        exp: Task.businessUnitId
+                                                      agentId:
+                                                        exp: Task.AgentEmail.id
+                                                      windowStart:
+                                                        exp: Flow.StartDateTimeUtc
+                                                      windowEnd:
+                                                        exp: AddHours(Flow.StartDateTimeUtc, 24)
+                                                      startDate:
+                                                        exp: GetAt(Task.startTimes, Task.ActivityId)
+                                                      lengthMinutes:
+                                                        exp: Slot.AdjustmentTime
+                                                      description:
+                                                        lit: Chat Update
+                                                      activityCodeId:
+                                                        exp: GetAt(Task.activityCodeIds, Task.ActivityId)
+                                                      paid:
+                                                        exp: Task.ActivityPaid
+                                                    failureOutputs:
+                                                      errorCode:
+                                                        var: Task.errorCode
+                                                      status:
+                                                        var: Task.status
+                                                      correlationId:
+                                                        noValue: true
+                                                      entityId:
+                                                        noValue: true
+                                                      entityName:
+                                                        noValue: true
+                                                      userMessage:
+                                                        var: Task.userMessage
+                                                      userParamsMessage:
+                                                        noValue: true
+                                                      userParams.key:
+                                                        noValue: true
+                                                      userParams.value:
+                                                        noValue: true
+                                                      details.errorCode:
+                                                        noValue: true
+                                                      details.fieldName:
+                                                        noValue: true
+                                                      details.entityId:
+                                                        noValue: true
+                                                      details.entityName:
+                                                        noValue: true
+                                            outputs:
+                                              success:
+                                                actions:
+                                                  - communicate:
+                                                      name: Communicate
+                                                      communication:
+                                                        exp: "MakeCommunication(\n  \"Schedule is adjusted successfully!\")"
+                                              failure:
+                                                actions:
+                                                  - communicate:
+                                                      name: Communicate
+                                                      communication:
+                                                        exp: "MakeCommunication(\n  \"ERROR: \", \n  ToCommunication(Task.errorCode), \n  \"Message: \", \n  ToCommunication(Task.userMessage), \n  \" Please try again. Ending flow...\")"
+                                              timeout:
+                                                actions:
+                                                  - communicate:
+                                                      name: Communicate
+                                                      communication:
+                                                        exp: "MakeCommunication(\n  \"ERROR: Process timed out. Please try again. Ending flow...\")"
+                                    failure:
+                                      actions:
+                                        - communicate:
+                                            name: Communicate
+                                            communication:
+                                              exp: "MakeCommunication(\n  \"ERROR: \", \n  ToCommunication(Task.errorCode), \n  \"Message: \", \n  ToCommunication(Task.userMessage), \n  \" Please try again. Ending flow...\")"
+                                    timeout:
+                                      actions:
+                                        - communicate:
+                                            name: Communicate
+                                            communication:
+                                              exp: "MakeCommunication(\n  \"ERROR: Process timed out. Please try again. Ending flow...\")"
+                          failure:
+                            actions:
+                              - communicate:
+                                  name: Communicate
+                                  communication:
+                                    exp: "MakeCommunication(\n  \"ERROR: \", \n  ToCommunication(Task.errorCode), \n  \"Message: \", \n  ToCommunication(Task.userMessage), \n  \" Please try again. Ending flow...\")"
+                          timeout:
+                            actions:
+                              - communicate:
+                                  name: Communicate
+                                  communication:
+                                    exp: "MakeCommunication(\n  \"ERROR: Process timed out. Please try again. Ending flow...\")"
+                notFound:
+                  actions:
+                    - communicate:
+                        name: Communicate
+                        communication:
+                          exp: "MakeCommunication(\n  \"ERROR: User is not found. Please try again. Ending flow...\")"
+          - disconnect:
+              name: Disconnect
+  settingsBotFlow:
+    intentSettings:
+      - intent:
+          confirmation:
+            exp: "MakeCommunication(\n  \"I think you want to Adjust Break Time, is that correct?\")"
+          name: Adjust Break Time
+    virtualAgentEnabled: true
+  settingsUserInput:
+    enableBargeIn:
+      lit: true
+    enableAutomaticQuickReplies:
+      lit: true
+    noMatchesMax:
+      lit: 3
+    noInputsMax:
+      lit: 3
+    noInputsTimeout:
+      lit:
+        seconds: 7
+    speechToTextSpeechDetectionSensitivity:
+      noValue: true
+    speechToTextMaxSpeechTimeout:
+      noValue: true
+    enableIntentClassificationHinting:
+      lit: false
+    interDigitTimeout:
+      lit:
+        seconds: 3
+    dtmfTerminatingCharacter:
+      noValue: true
+    confirmationRejectionsMax:
+      lit: 3
+    collectionLowConfidenceThreshold:
+      lit: 20
+    collectionHighConfidenceThreshold:
+      lit: 70
+    confirmationLowConfidenceThreshold:
+      lit: 40
+    noMatchApology:
+      exp: "MakeCommunication(\n  \"Sorry.\")"
+    noInputApology:
+      exp: "MakeCommunication(\n  \"Sorry, I didn't hear you.\")"
+    noToConfirmationApology:
+      exp: "MakeCommunication(\n  \"My mistake.\")"
+    confirmationNoMatchApology:
+      exp: "MakeCommunication(\n  \"Sorry, please say yes or no.\")"
+    confirmationNoInputApology:
+      exp: "MakeCommunication(\n  \"Sorry, I didn't hear you.  Please say yes or no.\")"
+  settingsKnowledge:
+    none: true
+  settingsVirtualAgent:
+    summarization:
+      lit: false
+    assignWrapupCodes:
+      lit: false
+  bots:
+    - bot:
+        name: Default Bot
+        refId: Default Bot_10
+        actions:
+          - updateData:
+              name: Update Data
+              statements:
+                - string:
+                    variable: Flow.JabberID
+                    value:
+                      exp: Substring(Flow.FlowfromUserJid, 0, FindString(Flow.FlowfromUserJid, "@"))
+                - string:
+                    variable: Flow.atMentionStr
+                    value:
+                      exp: "Append(\"[@\", Flow.fromUserName, \"]\", \"(#/person/\", Flow.JabberID, \")\")"
+          - askForIntent:
+              name: Ask for Intent
+              question:
+                exp: "MakeCommunication(\n  ToCommunication(Flow.atMentionStr), \n  \"How can I help you today?\")"
+              noInput:
+                exp: "MakeCommunication(\n  \"Just speak a short sentence that describes your query. For example, \\\"Check my account balance\\\"\")"
+              noMatch:
+                exp: "MakeCommunication(\n  \"Tell me again what you would like to do.\")"
+              voiceEndOfInputTimeout:
+                noValue: true
+              outputs:
+                intents:
+                  - intent:
+                      name: Adjust Break Time
+                      actions:
+                        - jumpToTask:
+                            name: Jump to Reusable Task
+                            targetTaskRef: "/botFlow/tasks/task[WFM - Reschedule_21]"
+                      enabled: true
+                noIntent:
+                  enabled: false
+                knowledge:
+                  enabled: false
+                maxNoInputs:
+                  enabled: false
+  settingsNaturalLanguageUnderstanding:
+    nluDomainVersion:
+      intents:
+        - utterances:
+            - segments:
+                - text: I need to change my break time.
+              id: 0b8193f0-489f-4fc4-a3b4-3fe4df3dbd6e
+              source: Generated
+            - segments:
+                - text: Can I adjust my lunch break?
+              id: b5c4e0a9-7716-425d-b459-4c16b2da2f02
+              source: Generated
+            - segments:
+                - text: I'd like to modify my meal schedule.
+              id: f2da5cec-8da1-4cd0-ae55-aefce2db4c54
+              source: Generated
+            - segments:
+                - text: I want to update my break status.
+              id: 545d96f9-411e-4c63-af72-bebe939ef46f
+              source: Generated
+            - segments:
+                - text: I have to leave for a bit, can I change my break time?
+              id: 39ee2318-73ee-48e8-925e-831347e60e2b
+              source: Generated
+            - segments:
+                - text: I need to take an earlier break today.
+              id: 7038d80d-896b-49f7-9c77-5fea449528e7
+              source: Generated
+            - segments:
+                - text: I'm ready to take my break now, can you update that?
+              id: 2bb1d3aa-e98c-4cbd-9348-df44f6ecd80d
+              source: Generated
+            - segments:
+                - text: I need to extend my break time, is that possible?
+              id: 78be1198-9a48-4184-abec-16f34fcc4e6c
+              source: Generated
+            - segments:
+                - text: I'm done with my break, please update my status.
+              id: 75182ef8-e86d-461e-880b-6f1ef4860e9e
+              source: Generated
+            - segments:
+                - text: I'd like to take a shorter break today, can you help with that?
+              id: 6d09bf08-f6b6-4898-b83f-da821defcd5b
+              source: Generated
+            - segments:
+                - text: I need to take my break a little later, can you make that change?
+              id: ad46bd5d-51d0-40e0-a9b9-3736684605b0
+              source: Generated
+            - segments:
+                - text: I'm ready to start my lunch break, can you log that?
+              id: ccc15e5b-39b1-4ca2-9dde-05848e96ed1c
+              source: Generated
+            - segments:
+                - text: I need to take an additional break, can you add that to my schedule?
+              id: 22d0fc43-745f-4ac7-9dd9-ba3aacaa303d
+              source: Generated
+            - segments:
+                - text: I'd like to take my break at a different time, can you accommodate that?
+              id: f7e10d8a-895b-454b-b95d-ccc5a494e130
+              source: Generated
+            - segments:
+                - text: I'm done with my break, can you mark me as back on the clock?
+              id: 93d0a2ca-6d8c-485c-a861-b1629b95c74d
+              source: Generated
+            - segments:
+                - text: I need to take an early break, can you update my status?
+              id: e976c2f0-ccb4-4cab-93ac-2c3e6eaa77c1
+              source: Generated
+            - segments:
+                - text: I'd like to take a longer break today, is that possible?
+              id: ee491712-9f94-4414-aca9-ba7f1070e2d2
+              source: Generated
+            - segments:
+                - text: I need to take my break now, can you make that change?
+              id: 952ca023-baad-4a58-a9a2-c17f00b724e2
+              source: Generated
+            - segments:
+                - text: I'm ready to return from my break, can you update my status?
+              id: e665894d-4a69-4bfe-8879-9511481b964c
+              source: Generated
+            - segments:
+                - text: I'd like to take my break a bit later, can you adjust that for me?
+              id: 5f10abc4-a946-4ea1-b1e6-34387df70665
+              source: Generated
+          entityNameReferences: []
+          id: fda38818-46d2-44d2-a818-1f64c201a9f7
+          name: Adjust Break Time
+          description: "The user needs to adjust their break, lunch, meal or other status\n"
+      entities:
+        - name: Activity
+          type: ActivityType
+        - name: AdjustmentTime
+          type: AdjustmentTimeType
+        - name: AgentEmail
+          type: AgentEmailType
+        - name: FavoriteQuest
+          type: FavoriteQuestType
+        - name: Name
+          type: NameType
+      entityTypes:
+        - name: ActivityType
+          mechanism:
+            type: AI
+            subType: NumberSequence
+            allowSpecialChars: false
+            maxLength: 1
+        - name: AdjustmentTimeType
+          mechanism:
+            type: AI
+            subType: NumberSequence
+            allowSpecialChars: false
+            maxLength: 2
+        - name: AgentEmailType
+          description: I am expecting to see an email address that a user inputs.
+          mechanism:
+            type: AI
+            subType: FreeForm
+            allowSpecialChars: false
+            examples:
+              - text: It's 123@gmail.com
+                resolvedValue: 123@gmail.com
+              - text: My email is vivek.patel2@genesys.com
+                resolvedValue: vivek.patel2@genesys.com
+        - name: FavoriteQuestType
+          description: I am expecting to get a response of something the end user is trying to do or a quest they are wanting to go on.
+          mechanism:
+            type: AI
+            subType: FreeForm
+            allowSpecialChars: false
+            examples:
+              - text: to be the best at what I do
+                resolvedValue: the best
+              - text: To seek the holy grail
+                resolvedValue: seek the holy grail
+              - text: I am going on an adventure
+                resolvedValue: adventure
+        - name: NameType
+          description: I am expecting to get first or last names in this slot
+          mechanism:
+            type: AI
+            subType: FreeForm
+            allowSpecialChars: false
+            examples:
+              - text: Name is Dave
+                resolvedValue: Dave
+              - text: My name is Vivek
+                resolvedValue: Vivek
+      language: en-us
+      languageVersions: {}
+    mutedUtterances: []

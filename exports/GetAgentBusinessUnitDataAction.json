@@ -1,0 +1,43 @@
+{
+  "name": "Get Agent Business Unit Data Action",
+  "integrationType": "purecloud-data-actions",
+  "actionType": "custom",
+  "config": {
+    "request": {
+      "requestUrlTemplate": "/api/v2/workforcemanagement/agents/${input.agentId}/managementunit",
+      "requestType": "GET",
+      "headers": {},
+      "requestTemplate": "${input.rawRequest}"
+    },
+    "response": {
+      "translationMap": {
+        "businessUnit": "$.businessUnit.id"
+      },
+      "translationMapDefaults": {},
+      "successTemplate": "{\"businessUnit\": ${businessUnit}}"
+    }
+  },
+  "contract": {
+    "input": {
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "agentId": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "output": {
+      "successSchema": {
+        "type": "object",
+        "properties": {
+          "businessUnit": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "secure": false
+}
